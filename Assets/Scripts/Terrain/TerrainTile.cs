@@ -40,6 +40,9 @@ public class TerrainTile : MonoBehaviour
             case TerrainType.Rock:
                 GetComponent<SpriteRenderer>().sprite = rock;
                 break;
+            case TerrainType.None:
+                GetComponent<SpriteRenderer>().sprite = empty;
+                break;
             case TerrainType.Empty:
                 GetComponent<SpriteRenderer>().sprite = empty;
                 break;

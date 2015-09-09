@@ -40,18 +40,17 @@ public class Biome
 
         bool bSuccess = false;
 
-        for (int i = floodFillIndex; i < mapPoints.Count; i++)
+        do
         {
-            if (FillFromPoint(mapPoints[i]))
+            if (FillFromPoint(mapPoints[floodFillIndex]))
             {
                 bSuccess = true;
-                break;
             }
             else
             {
                 floodFillIndex++;
             }
-        }
+        } while (!bSuccess && (floodFillIndex < mapPoints.Count));
 
         if (!bSuccess)
         {
