@@ -192,16 +192,16 @@ public class Terrain : MonoBehaviour
         switch (dir)
         {
             case Direction.Up:
-                --newMapPoint.y;
+                ++newMapPoint.x;
                 break;
             case Direction.Down:
-                ++newMapPoint.y;
-                break;
-            case Direction.Left:
                 --newMapPoint.x;
                 break;
+            case Direction.Left:
+                --newMapPoint.y;
+                break;
             case Direction.Right:
-                ++newMapPoint.x;
+                ++newMapPoint.y;
                 break;
         }
 
@@ -218,31 +218,19 @@ public class Terrain : MonoBehaviour
             }
         }
     }
-}
 
-public enum TerrainType
-{
-    None,
-    Grass,
-    Lava,
-    Forest,
-    Rock,
-    Empty
+    public TerrainMapPoint GetCenterPoint()
+    {
+        return new TerrainMapPoint()
+        {
+            x = (int)(TerrainSize / 2),
+            y = (int)(TerrainSize / 2)
+        };
+    }
 }
 
 public struct TerrainMapPoint
 {
     public int x;
     public int y;
-}
-
-[Flags]
-public enum Direction
-{
-    None = 0,
-    Up = 1,
-    Down = 2,
-    Left = 4,
-    Right = 8,
-    AllDirections = Direction.Up | Direction.Down | Direction.Left | Direction.Right
 }
