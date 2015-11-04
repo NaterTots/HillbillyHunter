@@ -31,6 +31,16 @@ public class InputController : IController
         return Input.GetKeyDown(KeyCode.Escape);
     }
 
+    public bool GetChangeGuns()
+    {
+        return Input.GetKeyDown(KeyCode.G);
+    }
+
+    public bool GetShootPressed()
+    {
+        return Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
+    }
+
     public void Cleanup()
     {
 

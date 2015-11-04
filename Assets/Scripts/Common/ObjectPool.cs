@@ -102,7 +102,7 @@ public class ObjectPool : IEnumerable<KeyValuePair<int, GameObject>>
             }
             else
             {
-                activePoolObjects[nextObjectIndex].gameObject = (GameObject)MonoBehaviour.Instantiate(objectPrefab);
+                activePoolObjects[nextObjectIndex].gameObject = UnityEngine.Object.Instantiate(objectPrefab);
                 activePoolObjects[nextObjectIndex].gameObject.transform.parent = parentContainer.transform;
             }
 
@@ -110,7 +110,10 @@ public class ObjectPool : IEnumerable<KeyValuePair<int, GameObject>>
             activePoolObjects[nextObjectIndex].gameObject.SetActive(true);
             activePoolObjects[nextObjectIndex].id = activePoolObjects[nextObjectIndex].gameObject.GetInstanceID();
 
-            prep(ref activePoolObjects[nextObjectIndex].gameObject, optionalPrepParam);
+            if (prep != null)
+            {
+                prep(ref activePoolObjects[nextObjectIndex].gameObject, optionalPrepParam);
+            }
 
             return activePoolObjects[nextObjectIndex].gameObject;
         }

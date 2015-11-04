@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IController
 {
     private enum Facing
     {
@@ -50,8 +51,13 @@ public class Player : MonoBehaviour
     private Facing myFacing = Facing.Up;
     private float walkingSpeed;
 
+    public void Awake()
+    {
+        Resolver.Instance.AddController(this);
+    }
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -60,9 +66,14 @@ public class Player : MonoBehaviour
 
         walkingSpeed = 8.0f;
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+
+    public void OnDestroy()
+    {
+        Resolver.Instance.RemoveController(this);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         // Move senteces
         myRigidbody2D.velocity = new Vector2(Mathf.Lerp(0, Input.GetAxis("Horizontal") * walkingSpeed, 0.8f),
@@ -127,5 +138,10 @@ public class Player : MonoBehaviour
                 playerRender.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 break;
         }
+    }
+
+    public void Cleanup()
+    {
+        throw new NotImplementedException();
     }
 }
